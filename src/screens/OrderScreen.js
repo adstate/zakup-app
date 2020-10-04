@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
 import { StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { DrawerActions } from '@react-navigation/native';

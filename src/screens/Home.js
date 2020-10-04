@@ -1,25 +1,24 @@
 import React, {useContext} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import { DrawerActions } from '@react-navigation/native';
-import { Header, Card, ListItem, Button, Icon, Divider, ThemeContext, Text} from 'react-native-elements';
-
-
-let orders = [
-    {id: 1, name: 'Заказ в RautDv', date: '05.10.2020', status: 'активный', description: 'Закупаемся на выходных в Рауте'},
-    {id: 2, name: 'Заказ в RautDv', date: '09.10.2020', status: 'активный', description: 'Закупаемся на выходных в Рауте'},
-    {id: 3, name: 'Заказ в RautDv', date: '15.10.2020', status: 'активный', description: 'Закупаемся на выходных в Рауте'}
-];
+import { Button, Card, ListItem, Icon, Divider, ThemeContext, Text} from 'react-native-elements';
+import {setToken} from '../store/actions';
 
 const Home = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
 
+    const {orders} = useSelector((state) => state.zakupki);
+    const dispatch = useDispatch();
+
     return (
-        <View>            
+        <View>
+            <StatusBar backgroundColor="blue" barStyle={'light-content'} />
             <View style={styles.orderList}>
                 {
                     orders.length > 0 && orders.map((order, i) => {
                         return (
-                            <ListItem key={i} bottomDivider style={styles.orderListItem} onPress={() => navigation.navigate('OrderDetails', order)}>
+                            <ListItem key={i} bottomDivider style={styles.orderListItem} onPress={() => navigation.navigate('Закупка', order)}>
                                 <ListItem.Content>
                                     <ListItem.Title>{order.name}</ListItem.Title>
                                     <ListItem.Subtitle style={{color: theme.colors.gray2}}>
@@ -58,5 +57,11 @@ const styles = StyleSheet.create({
     },
     emptyContainer: {
         marginTop: 20
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+        paddingRight: 10,
+        fontSize: 12
     }
   });

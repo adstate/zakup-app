@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { userReducer } from './reducers';
+import { userReducer, orderReducer, orderListReducer, usersReducer } from './reducers';
 import { persistStore, persistReducer, createMigrate } from "redux-persist";
 import createSecureStore from "redux-persist-expo-securestore";
 
@@ -13,8 +13,10 @@ const config = {
 };
 
 const rootReducer = combineReducers({
-  //user: persistReducer(config, userReducer)
-  user: persistReducer(config, userReducer)
+  user: persistReducer(config, userReducer),
+  order: orderReducer,
+  zakupki: orderListReducer,
+  users: usersReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
